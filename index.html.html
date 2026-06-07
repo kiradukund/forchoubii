@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for choubii 🌹</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #C0392B;
@@ -15,13 +14,15 @@
     --cream: #FEFAF8;
     --ink: #1A0A09;
     --ink-soft: #5C2E2A;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: var(--cream);
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -88,11 +89,12 @@
   }
 
   h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--serif);
     font-size: 1.75rem;
     color: var(--ink);
     line-height: 1.3;
     margin-bottom: 0.5rem;
+    font-weight: 700;
   }
   .italic { font-style: italic; color: var(--red); }
   .sub {
@@ -102,16 +104,15 @@
     line-height: 1.6;
   }
 
-  /* YES button — normal flow */
   .btn-yes {
     background: var(--red);
     color: white;
     border: none;
     border-radius: 100px;
     padding: 0.85rem 2.8rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
     letter-spacing: 0.02em;
@@ -119,27 +120,24 @@
   .btn-yes:hover { background: var(--red-deep); transform: scale(1.03); }
   .btn-yes:active { transform: scale(0.98); }
 
-  /* NO button — starts in normal flow, goes absolute when running */
   .btn-no {
     background: #F9E6E4;
     color: var(--red-deep);
     border: 1.5px solid #E8CCC9;
     border-radius: 100px;
     padding: 0.85rem 2.2rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
     user-select: none;
-    transition: border-color 0.2s;
   }
   .btn-no.running {
     position: absolute;
     transition: none;
   }
 
-  /* initial row — side by side, normal flow */
   .btn-row {
     display: flex;
     align-items: center;
@@ -149,18 +147,9 @@
     min-height: 60px;
   }
 
-  .divider {
-    width: 40px; height: 1px;
-    background: #F0CECA;
-    margin: 1.5rem auto;
-  }
+  .divider { width: 40px; height: 1px; background: #F0CECA; margin: 1.5rem auto; }
 
-  .food-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 1.5rem 0;
-  }
+  .food-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.5rem 0; }
   .food-item {
     background: var(--red-mist);
     border: 1.5px solid #F0CECA;
@@ -179,7 +168,7 @@
     padding: 0.85rem 1.2rem;
     border: 1.5px solid #F0CECA;
     border-radius: 14px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
     font-size: 1rem;
     color: var(--ink);
     background: var(--red-mist);
@@ -211,7 +200,7 @@
   }
 
   .final-quote {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--serif);
     font-size: 1.5rem;
     font-style: italic;
     color: var(--ink);
@@ -226,7 +215,6 @@
 <div class="bg-decor" id="bgDecor"></div>
 <div class="confetti-wrap" id="confettiWrap"></div>
 
-<!-- SCENE 1 -->
 <div class="scene active" id="s1">
   <div class="card">
     <div class="card-accent"></div>
@@ -241,7 +229,6 @@
   </div>
 </div>
 
-<!-- SCENE 2 -->
 <div class="scene" id="s2">
   <div class="card">
     <div class="card-accent"></div>
@@ -254,7 +241,6 @@
   </div>
 </div>
 
-<!-- SCENE 3 -->
 <div class="scene" id="s3">
   <div class="card">
     <div class="card-accent"></div>
@@ -267,7 +253,6 @@
   </div>
 </div>
 
-<!-- SCENE 4 -->
 <div class="scene" id="s4">
   <div class="card">
     <div class="card-accent"></div>
@@ -286,7 +271,6 @@
   </div>
 </div>
 
-<!-- SCENE 5 -->
 <div class="scene" id="s5">
   <div class="card">
     <div class="card-accent"></div>
@@ -299,11 +283,9 @@
 </div>
 
 <script>
-let noCount = 0, food = '', dateStr = '';
-let noIsRunning = false;
+let noCount=0,food='',dateStr='',noIsRunning=false;
 
-// petals
-const decor = document.getElementById('bgDecor');
+const decor=document.getElementById('bgDecor');
 for(let i=0;i<18;i++){
   const p=document.createElement('div');
   p.className='petal';
@@ -312,87 +294,67 @@ for(let i=0;i<18;i++){
   decor.appendChild(p);
 }
 
-// date default
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('dateInput').min = today;
-document.getElementById('dateInput').value = today;
+const today=new Date().toISOString().split('T')[0];
+document.getElementById('dateInput').min=today;
+document.getElementById('dateInput').value=today;
 
-function go(n) {
+function go(n){
   document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
 }
 
-function handleYes() { go(2); confetti(); }
+function handleYes(){go(2);confetti();}
 
-function runAway(e) {
+function runAway(e){
   if(e) e.preventDefault();
   noCount++;
-
-  const btn = document.getElementById('noBtn');
-  const card = btn.closest('.card');
-
-  if(!noIsRunning) {
-    // first time: switch to absolute positioning
-    noIsRunning = true;
-    const row = document.getElementById('btnRow');
-    // get btn position relative to card before switching
-    const btnRect = btn.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const startLeft = btnRect.left - cardRect.left;
-    const startTop = btnRect.top - cardRect.top;
+  const btn=document.getElementById('noBtn');
+  const card=btn.closest('.card');
+  if(!noIsRunning){
+    noIsRunning=true;
+    const br=btn.getBoundingClientRect();
+    const cr=card.getBoundingClientRect();
     btn.classList.add('running');
-    btn.style.left = startLeft + 'px';
-    btn.style.top = startTop + 'px';
+    btn.style.left=(br.left-cr.left)+'px';
+    btn.style.top=(br.top-cr.top)+'px';
   }
-
-  // jump to random spot within card bounds
-  const cardW = card.offsetWidth;
-  const cardH = card.offsetHeight;
-  const btnW = btn.offsetWidth;
-  const btnH = btn.offsetHeight;
-  const pad = 20;
-  const maxX = cardW - btnW - pad;
-  const maxY = cardH - btnH - pad;
-  const newX = Math.max(pad, Math.random() * maxX);
-  const newY = Math.max(pad, Math.random() * maxY);
-
-  btn.style.left = newX + 'px';
-  btn.style.top = newY + 'px';
-
-  const msgs = ['no 🙃','nope 🤭','never 😅','run! 🏃','nahh 😏','stop 😂'];
-  btn.textContent = msgs[Math.min(noCount-1, msgs.length-1)];
-
-  const sub = document.getElementById('sub1');
+  const maxX=card.offsetWidth-btn.offsetWidth-20;
+  const maxY=card.offsetHeight-btn.offsetHeight-20;
+  btn.style.left=Math.max(10,Math.random()*maxX)+'px';
+  btn.style.top=Math.max(10,Math.random()*maxY)+'px';
+  const msgs=['no 🙃','nope 🤭','never 😅','run! 🏃','nahh 😏','stop 😂'];
+  btn.textContent=msgs[Math.min(noCount-1,msgs.length-1)];
+  const sub=document.getElementById('sub1');
   if(noCount===1) sub.textContent='it keeps running... 🤭';
   else if(noCount===2) sub.textContent='stop chasing it, just say yes 🙈';
   else sub.textContent='the NO button has given up on you 😂';
   if(noCount>=4) btn.style.opacity='0.35';
 }
 
-function goFood() {
-  const d = document.getElementById('dateInput').value;
-  if(d){ const [y,m,dd]=d.split('-'); dateStr=`${dd}/${m}/${y}`; }
+function goFood(){
+  const d=document.getElementById('dateInput').value;
+  if(d){const[y,m,dd]=d.split('-');dateStr=`${dd}/${m}/${y}`;}
   go(4);
 }
 
-function pickFood(el, f) {
-  food = f;
+function pickFood(el,f){
+  food=f;
   document.querySelectorAll('.food-item').forEach(x=>x.classList.remove('picked'));
   el.classList.add('picked');
   document.getElementById('foodBtn').style.display='block';
 }
 
-function goFinal() {
-  let msg = "glad you didn't say no.\nbe ready by 6 — I'm coming to get you ♥";
-  if(dateStr && food) msg = `glad you didn't say no.\n${dateStr} — ${food} and good vibes.\nbe ready by 6, I'm coming to get you ♥`;
-  else if(food) msg = `glad you didn't say no.\n${food} it is — be ready by 6 ♥`;
-  else if(dateStr) msg = `glad you didn't say no.\n${dateStr} — be ready by 6 ♥`;
-  document.getElementById('finalMsg').innerHTML = msg.replace(/\n/g,'<br>');
+function goFinal(){
+  let msg="glad you didn't say no.\nbe ready by 6 — I'm coming to get you ♥";
+  if(dateStr&&food) msg=`glad you didn't say no.\n${dateStr} — ${food} and good vibes.\nbe ready by 6, I'm coming to get you ♥`;
+  else if(food) msg=`glad you didn't say no.\n${food} it is — be ready by 6 ♥`;
+  else if(dateStr) msg=`glad you didn't say no.\n${dateStr} — be ready by 6 ♥`;
+  document.getElementById('finalMsg').innerHTML=msg.replace(/\n/g,'<br>');
   go(5);
 }
 
-function confetti() {
-  const wrap = document.getElementById('confettiWrap');
+function confetti(){
+  const wrap=document.getElementById('confettiWrap');
   const colors=['#C0392B','#E8574A','#F9E6E4','#7B1D13','#F5B7B1','#FEFAF8','#922B21'];
   for(let i=0;i<90;i++){
     const el=document.createElement('div');
@@ -406,4 +368,3 @@ function confetti() {
 </script>
 </body>
 </html>
-
