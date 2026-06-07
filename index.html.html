@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for choubii 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0392B;
+    --red-deep: #7B1D13;
+    --red-light: #E8574A;
+    --red-blush: #F9E6E4;
+    --red-mist: #FDF3F2;
+    --cream: #FEFAF8;
+    --ink: #1A0A09;
+    --ink-soft: #5C2E2A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* animated background petals */
+  .bg-decor {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.07;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.1; }
+    90% { opacity: 0.05; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* SCENES */
+  .scene {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .scene.active { display: flex; }
+
+  /* CARD */
+  .card {
+    background: white;
+    border: 1px solid #F0CECA;
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 40px rgba(192,57,43,0.08), 0 1px 8px rgba(192,57,43,0.06);
+    animation: cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 4px;
+    background: var(--red);
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* ICON */
+  .icon-wrap {
+    width: 72px; height: 72px;
+    background: var(--red-blush);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+  }
+
+  /* TYPOGRAPHY */
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  .italic { font-style: italic; color: var(--red); }
+  .sub {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  /* BUTTONS */
+  .btn-yes {
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 0.85rem 2.8rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn-yes:hover { background: var(--red-deep); transform: scale(1.03); }
+  .btn-yes:active { transform: scale(0.98); }
+
+  .btn-no {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid #E8CCC9;
+    border-radius: 100px;
+    padding: 0.75rem 1.8rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    position: absolute;
+    transition: border-color 0.2s;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    min-height: 56px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px; height: 1px;
+    background: #F0CECA;
+    margin: 1.5rem auto;
+  }
+
+  /* FOOD GRID */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 1.5rem 0;
+  }
+  .food-item {
+    background: var(--red-mist);
+    border: 1.5px solid #F0CECA;
+    border-radius: 16px;
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .food-item:hover { background: var(--red-blush); border-color: var(--red-light); }
+  .food-item.picked { background: var(--red-blush); border-color: var(--red); }
+  .food-item .emoji { font-size: 1.8rem; display: block; }
+  .food-item .label { font-size: 0.78rem; color: var(--ink-soft); margin-top: 4px; font-weight: 500; }
+
+  /* DATE INPUT */
+  input[type="date"] {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    border: 1.5px solid #F0CECA;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--red-mist);
+    outline: none;
+    margin: 1rem 0 1.5rem;
+    transition: border-color 0.2s;
+  }
+  input[type="date"]:focus { border-color: var(--red); }
+
+  /* HEARTS ROW */
+  .hearts {
+    color: var(--red);
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    margin-top: 1.5rem;
+    opacity: 0.5;
+  }
+
+  /* CONFETTI */
+  .confetti-wrap {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 999;
+    overflow: hidden;
+  }
+  .conf {
+    position: fixed;
+    pointer-events: none;
+    animation: confFall linear forwards;
+  }
+  @keyframes confFall {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* TAG */
+  .made-tag {
+    display: inline-block;
+    background: var(--red-blush);
+    color: var(--red);
+    font-size: 0.72rem;
+    font-weight: 500;
+    border-radius: 100px;
+    padding: 4px 14px;
+    margin-top: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* SCENE TRANSITIONS */
+  .scene-enter {
+    animation: cardIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* FINAL QUOTE */
+  .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .ps {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decor" id="bgDecor"></div>
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<!-- SCENE 1: Ask -->
+<div class="scene active" id="s1">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="icon-wrap">🌹</div>
+    <h1>Will you go on a date<br>with me, <span class="italic">Choubii</span>?</h1>
+    <div class="divider"></div>
+    <p class="sub">think carefully before answering...</p>
+    <div class="btn-row" id="btnRow">
+      <button class="btn-yes" onclick="handleYes()">YES ♥</button>
+      <button class="btn-no" id="noBtn" onmouseenter="runAway()" ontouchstart="runAway(event)">no 🙃</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 2: YES reaction -->
+<div class="scene" id="s2">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="icon-wrap">😭</div>
+    <h1>WAIT you actually<br><span class="italic">said yes??</span></h1>
+    <div class="divider"></div>
+    <p class="sub">I was so ready for you to say no 😂<br>okay okay okay—</p>
+    <button class="btn-yes" onclick="go(3)">okay okay! →</button>
+    <div class="hearts">♥ ♥ ♥</div>
+  </div>
+</div>
+
+<!-- SCENE 3: Pick date -->
+<div class="scene" id="s3">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="icon-wrap">📅</div>
+    <h1>So... <span class="italic">when are you free?</span></h1>
+    <div class="divider"></div>
+    <p class="sub">Pick a day and I'll handle everything else.</p>
+    <input type="date" id="dateInput" />
+    <button class="btn-yes" style="width:100%" onclick="goFood()">set the date! ♥</button>
+  </div>
+</div>
+
+<!-- SCENE 4: Food -->
+<div class="scene" id="s4">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="icon-wrap">🍽️</div>
+    <h1>What are we <span class="italic">feeling?</span></h1>
+    <p class="sub" style="margin-bottom:0">pick your vibe</p>
+    <div class="food-grid">
+      <div class="food-item" onclick="pickFood(this,'Pizza')"><span class="emoji">🍕</span><span class="label">Pizza</span></div>
+      <div class="food-item" onclick="pickFood(this,'Sushi')"><span class="emoji">🍱</span><span class="label">Sushi</span></div>
+      <div class="food-item" onclick="pickFood(this,'Burgers')"><span class="emoji">🍔</span><span class="label">Burgers</span></div>
+      <div class="food-item" onclick="pickFood(this,'Pasta')"><span class="emoji">🍝</span><span class="label">Pasta</span></div>
+      <div class="food-item" onclick="pickFood(this,'Tacos')"><span class="emoji">🌮</span><span class="label">Tacos</span></div>
+      <div class="food-item" onclick="pickFood(this,'Ramen')"><span class="emoji">🍜</span><span class="label">Ramen</span></div>
+    </div>
+    <button class="btn-yes" id="foodBtn" style="width:100%;display:none" onclick="go(5)">let's go! ♥</button>
+  </div>
+</div>
+
+<!-- SCENE 5: Final -->
+<div class="scene" id="s5">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="icon-wrap">🚗</div>
+    <p class="final-quote" id="finalMsg">glad you didn't say no.<br>be ready by 6 — I'm coming to get you ♥</p>
+    <p class="ps">P.S. I made this for you during lunch. no big deal.</p>
+    <div class="hearts">♥ ♥ ♥ ♥ ♥</div>
+    <span class="made-tag">made with ♥ just for you</span>
+  </div>
+</div>
+
+<script>
+let noCount = 0, food = '', dateStr = '';
+
+// background petals
+const decor = document.getElementById('bgDecor');
+for(let i=0;i<18;i++){
+  const p = document.createElement('div');
+  p.className='petal';
+  const s=Math.random()*10+4;
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
+  decor.appendChild(p);
+}
+
+// date default
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('dateInput').min = today;
+document.getElementById('dateInput').value = today;
+
+function go(n) {
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  const s = document.getElementById('s'+n);
+  s.classList.add('active');
+  s.querySelector('.card').classList.remove('scene-enter');
+  void s.querySelector('.card').offsetWidth;
+  s.querySelector('.card').classList.add('scene-enter');
+}
+
+function handleYes() {
+  go(2);
+  confetti();
+}
+
+function runAway(e) {
+  if(e) e.preventDefault();
+  noCount++;
+  const btn = document.getElementById('noBtn');
+  const card = btn.parentElement;
+  const cw = card.offsetWidth - btn.offsetWidth - 32;
+  const ch = 100;
+  btn.style.left = Math.max(0, Math.random()*cw)+'px';
+  btn.style.top = (Math.random()*ch - 30)+'px';
+  const msgs=['no 🙃','nope 🤭','never 😅','run! 🏃','nahh 😏','stop 😂'];
+  btn.textContent = msgs[Math.min(noCount-1, msgs.length-1)];
+  const sub = document.querySelector('#s1 .sub');
+  if(noCount===1) sub.textContent='it keeps running... 🤭';
+  else if(noCount===2) sub.textContent='stop chasing it and just say yes 🙈';
+  else sub.textContent='the NO button has given up on you';
+  if(noCount>=4) btn.style.opacity='0.3';
+}
+
+function goFood() {
+  const d = document.getElementById('dateInput').value;
+  if(d){ const [y,m,dd]=d.split('-'); dateStr=`${dd}/${m}/${y}`; }
+  go(4);
+}
+
+function pickFood(el, f) {
+  food = f;
+  document.querySelectorAll('.food-item').forEach(x=>x.classList.remove('picked'));
+  el.classList.add('picked');
+  document.getElementById('foodBtn').style.display='block';
+}
+
+function go5() {
+  let msg = "glad you didn't say no.\nbe ready by 6 — I'm coming to get you ♥";
+  if(dateStr && food) msg = `glad you didn't say no.\n${dateStr} — ${food} and good vibes.\nbe ready by 6, I'm coming to get you ♥`;
+  else if(food) msg = `glad you didn't say no.\n${food} it is — be ready by 6 ♥`;
+  else if(dateStr) msg = `glad you didn't say no.\n${dateStr} — be ready by 6, I'm coming to get you ♥`;
+  document.getElementById('finalMsg').innerHTML = msg.replace(/\n/g,'<br>');
+  go(5);
+}
+
+// override go(5) call
+document.querySelector('#s4 .btn-yes').onclick = go5;
+
+function confetti() {
+  const wrap = document.getElementById('confettiWrap');
+  const colors=['#C0392B','#E8574A','#F9E6E4','#7B1D13','#F5B7B1','#FEFAF8','#922B21'];
+  for(let i=0;i<90;i++){
+    const el=document.createElement('div');
+    const sz=Math.random()*9+4;
+    const isSquare=Math.random()>0.5;
+    el.className='conf';
+    el.style.cssText=`width:${sz}px;height:${sz}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${isSquare?'2px':'50%'};left:${Math.random()*100}vw;top:-${sz}px;animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*0.6}s;`;
+    wrap.appendChild(el);
+    setTimeout(()=>el.remove(), 3500);
+  }
+}
+</script>
+</body>
+</html>
